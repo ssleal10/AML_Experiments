@@ -103,7 +103,7 @@ class Proper_arch(nn.Module):
             #nn.BatchNorm2d(6),
             nn.ReLU(True),
             nn.MaxPool2d(2, stride=2),
-            nn.Conv2d(16, 8 kernel_size=2, padding=1, bias=False),
+            nn.Conv2d(16, 8, kernel_size=2, padding=1, bias=False),
             #nn.BatchNorm2d(12)
             nn.ReLU(True),
             nn.MaxPool2d(2, stride=1))
@@ -120,13 +120,13 @@ class Proper_arch(nn.Module):
         #self.linear4 = nn.Linear(28*28*4,28*28*8)
         #self.bn3 = nn.BatchNorm2d(8)
         self.decoder = nn.Sequential(
-            nn.ConvTranspose2d(8, 16 kernel_size=3, stride=2, padding=1, bias=False),
+            nn.ConvTranspose2d(8, 16, kernel_size=3, stride=2, padding=1, bias=False),
             #nn.BatchNorm2d(24)
             nn.ReLU(True),
             nn.ConvTranspose2d(16 8, kernel_size=5, stride=3, padding=1, bias=False),
             #nn.BatchNorm2d(12)
             nn.ReLU(True),
-            nn.ConvTranspose2d(8, 1 kernel_size=2, stride=2, padding=1, bias=False),
+            nn.ConvTranspose2d(8, 1, kernel_size=2, stride=2, padding=1, bias=False),
             #nn.BatchNorm2d(6)
             #n.ReLU(True),
             #n.ConvTranspose2d(6, 1, kernel_size=5, stride=1, padding=1, bias=False),
