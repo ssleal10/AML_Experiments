@@ -171,24 +171,24 @@ if __name__ == '__main__':
                 'Loss: {train_loss.val:.4f} ({train_loss.avg:.4f})'.format(
                 epoch, batch_idx, len(trainloader), batch_time=batch_time, data_time=data_time, train_loss=train_loss))
 
-    for epoch in range(start_epoch, start_epoch+args.epochs):
-        train(epoch)
-        acc = kNN(epoch, net, lemniscate, trainloader, testloader, 200, args.nce_t, 0)
+    #for epoch in range(start_epoch, start_epoch+args.epochs):
+        #train(epoch)
+        #acc = kNN(epoch, net, lemniscate, trainloader, testloader, 200, args.nce_t, 0)
 
-        if acc > best_acc:
-            print('Saving..')
-            state = {
-                'net': net.state_dict(),
-                'lemniscate': lemniscate,
-                'acc': acc,
-                'epoch': epoch,
-            }
-            if not os.path.isdir('checkpoint'):
-                os.mkdir('checkpoint')
-            torch.save(state, './checkpoint/ckpt.t7')
-            best_acc = acc
+        #if acc > best_acc:
+            #print('Saving..')
+            #state = {
+             #   'net': net.state_dict(),
+             #   'lemniscate': lemniscate,
+             #   'acc': acc,
+             #   'epoch': epoch,
+            #}
+            #if not os.path.isdir('checkpoint'):
+             #   os.mkdir('checkpoint')
+            #torch.save(state, './checkpoint/ckpt.t7')
+            #best_acc = acc
 
-        print('best accuracy: {:.2f}'.format(best_acc*100))
+        #print('best accuracy: {:.2f}'.format(best_acc*100))
 
-    acc = kNN(0, net, lemniscate, trainloader, testloader, 200, args.nce_t, 1)
-    print('last accuracy: {:.2f}'.format(acc*100))
+    #acc = kNN(0, net, lemniscate, trainloader, testloader, 200, args.nce_t, 1)
+    #print('last accuracy: {:.2f}'.format(acc*100))
