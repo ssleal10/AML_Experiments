@@ -83,6 +83,7 @@ if __name__ == '__main__':
     print('==> Building model..')
     #net = models.__dict__['ResNet18'](low_dim=args.low_dim)
     net = x.Proper_arch()
+    print(net)
 
     # define leminiscate
     if args.nce_k > 0:
