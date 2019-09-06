@@ -98,25 +98,37 @@ class Proper_arch(nn.Module):
     def __init__(self):
         super(Proper_arch, self).__init__()
         #encoder 
-        self.conv1 = nn.Conv2d(1, 16, kernel_size=3, padding=1, bias=False)
-        self.bn1 = nn.BatchNorm2d(16)
-        self.conv2 = nn.Conv2d(16, 8, kernel_size=3, padding=1, bias=False)
-        self.bn2 = nn.BatchNorm2d(8)
+        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, padding=1, bias=False)
+        self.bn1 = nn.BatchNorm2d(32)
+        self.conv2 = nn.Conv2d(32, 32, kernel_size=3, padding=1, bias=False)
+        self.bn2 = nn.BatchNorm2d(32)
+        self.conv3 = nn.Conv2d(32, 32, kernel_size=3, padding=1, bias=False)
+        self.bn3 = nn.BatchNorm2d(32)
+        self.conv4 = nn.Conv2d(32, 32, kernel_size=3, padding=1, bias=False)
+        self.bn4 = nn.BatchNorm2d(32)
         #self.linear1 = nn.Linear(28*28*8, 28*28*4)
         #self.linear2 = nn.Linear(28*28*4, 28*28*2)
         
         #self.linear3 = nn.Linear(28*28*2,28*28*4)
         #self.linear4 = nn.Linear(28*28*4,28*28*8)
         #self.bn3 = nn.BatchNorm2d(8)
-        self.conv3 = nn.ConvTranspose2d(8, 16, kernel_size=3, stride=1, padding=1, bias=False)
-        self.bn4 = nn.BatchNorm2d(16)
-        self.conv4 = nn.ConvTranspose2d(16, 1, kernel_size=3, stride=1, padding=1, bias=False)
+        self.conv5 = nn.ConvTranspose2d(32, 32, kernel_size=3, stride=1, padding=1, bias=False)
+        self.bn5 = nn.BatchNorm2d(32)
+        self.conv6 = nn.ConvTranspose2d(32, 32, kernel_size=3, stride=1, padding=1, bias=False)
+        self.bn6 = nn.BatchNorm2d(32)
+        self.conv7 = nn.ConvTranspose2d(32, 32, kernel_size=3, stride=1, padding=1, bias=False)
+        self.bn7 = nn.BatchNorm2d(32)
+        self.conv8 = nn.ConvTranspose2d(32, 1, kernel_size=3, stride=1, padding=1, bias=False)
+
+
 
         
     def forward(self, x):
         #Encoder
         x = F.relu(self.bn1(self.conv1(x)))
         x = F.relu(self.bn2(self.conv2(x)))
+        x = F.relu(self.bn3(self.conv3(x)))
+        x = F.relu(self.bn4(self.conv4(x)))
         #x = x.view(-1,28*28*8)
         #x = F.relu(self.linear1(x))
         #x = F.relu(self.linear2(x))
@@ -125,8 +137,10 @@ class Proper_arch(nn.Module):
         #x = F.relu(self.linear4(x))
         #contrario x.view
         #x = x.view(28,28,8)
-        x = F.relu(self.bn4(self.conv3(x)))
-        x = F.relu((self.conv4(x)))
+        x = F.relu(self.bn5(self.conv5(x)))
+        x = F.relu(self.bn6(self.conv6(x)))
+        x = F.relu(self.bn7(self.conv7(x)))
+        x = F.relu((self.conv8(x)))
         x = F.relu(x)
         return x
 
