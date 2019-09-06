@@ -126,8 +126,8 @@ if __name__ == '__main__':
     def adjust_learning_rate(optimizer, epoch):
         """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
         lr = args.lr
-        if epoch >= 80:
-            lr = args.lr * (0.1 ** ((epoch-80) // 40))
+        if epoch >= 4:
+            lr = args.lr * (0.1 ** ((epoch-4) // 2))
         print(lr)
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
