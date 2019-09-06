@@ -106,11 +106,11 @@ if __name__ == '__main__':
         start_epoch = checkpoint['epoch']
         
     # define loss function
-    #if hasattr(lemniscate, 'K'):
-        #criterion = NCECriterion(ndata)
-    #else:
-        #criterion = nn.CrossEntropyLoss()
-    criterion = nn.MSELoss()
+    if hasattr(lemniscate, 'K'):
+        criterion = NCECriterion(ndata)
+    else:
+        criterion = nn.CrossEntropyLoss()
+    #criterion = nn.MSELoss()
     
     net.to(device)
     lemniscate.to(device)
@@ -149,8 +149,8 @@ if __name__ == '__main__':
             data_time.update(time.time() - end)
             inputs, targets, indexes = inputs.to(device), targets.to(device), indexes.to(device)
             
-            outputs = net(inputs)
-            #outputs = lemniscate(features, indexes)
+            features = net(inputs)
+            outputs = lemniscate(features, indexes)
             #calcular el loss sobre la salida del decoder con respecto a la entrada del encoder
             loss = criterion(outputs,inputs)
             
