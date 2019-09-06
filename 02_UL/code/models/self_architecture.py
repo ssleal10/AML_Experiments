@@ -102,11 +102,11 @@ class Proper_arch(nn.Module):
             nn.Conv2d(1, 16, kernel_size=3, padding=1, bias=False),
             #nn.BatchNorm2d(6),
             nn.ReLU(True),
-            nn.MaxPool2d(2, stride=2)
+            nn.MaxPool2d(2, stride=2),
             nn.Conv2d(16, 8 kernel_size=2, padding=1, bias=False),
             #nn.BatchNorm2d(12)
             nn.ReLU(True),
-            nn.MaxPool2d(2, stride=1)
+            nn.MaxPool2d(2, stride=1))
             #nn.Conv2d(12, 24, kernel_size=5, padding=1, bias=False),
             #nn.BatchNorm2d(24)
             #nn.ReLU(True),
@@ -133,7 +133,7 @@ class Proper_arch(nn.Module):
 
             nn.ReLU(True),
             #n.Sigmoid())
-            nn.Tanh()
+            nn.Tanh())
 
         
     def forward(self, x):
