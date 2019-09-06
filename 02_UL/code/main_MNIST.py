@@ -86,10 +86,10 @@ if __name__ == '__main__':
     print(net)
 
     # define leminiscate
-    if args.nce_k > 0:
-        lemniscate = NCEAverage(args.low_dim, ndata, args.nce_k, args.nce_t, args.nce_m)
-    else:
-        lemniscate = LinearAverage(args.low_dim, ndata, args.nce_t, args.nce_m)
+    #if args.nce_k > 0:
+        #lemniscate = NCEAverage(args.low_dim, ndata, args.nce_k, args.nce_t, args.nce_m)
+    #else:
+        #lemniscate = LinearAverage(args.low_dim, ndata, args.nce_t, args.nce_m)
 
     if device == 'cuda':
         net = torch.nn.DataParallel(net, device_ids=range(torch.cuda.device_count()))
@@ -102,7 +102,7 @@ if __name__ == '__main__':
         assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
         checkpoint = torch.load('./checkpoint/'+args.resume)
         net.load_state_dict(checkpoint['net'])
-        lemniscate = checkpoint['lemniscate']
+        #lemniscate = checkpoint['lemniscate']
         best_acc = checkpoint['acc']
         start_epoch = checkpoint['epoch']
         
@@ -114,15 +114,15 @@ if __name__ == '__main__':
     criterion = nn.MSELoss()
     
     net.to(device)
-    lemniscate.to(device)
+    #lemniscate.to(device)
     criterion.to(device)
 
     if args.test_only:
         acc = kNN(0, net, lemniscate, trainloader, testloader, 200, args.nce_t, 1)
         sys.exit(0)
 
-    optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
-
+    #optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
+    optimizer = optim.Adam(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=1e-5)
     def adjust_learning_rate(optimizer, epoch):
         """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
         lr = args.lr
