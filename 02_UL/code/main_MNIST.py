@@ -122,7 +122,7 @@ if __name__ == '__main__':
         sys.exit(0)
 
     #optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
-    optimizer = optim.Adam(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=1e-5)
+    optimizer = optim.Adam(net.parameters(), lr=args.lr, weight_decay=1e-5)
     def adjust_learning_rate(optimizer, epoch):
         """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
         lr = args.lr
