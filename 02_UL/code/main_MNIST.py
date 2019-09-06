@@ -55,19 +55,23 @@ if __name__ == '__main__':
 
     # Data
     print('==> Preparing data..')
-    transform_train = transforms.Compose([
-        transforms.RandomResizedCrop(size=32, scale=(0.2,1.)),
-        transforms.ColorJitter(0.4, 0.4, 0.4, 0.4),
-        transforms.RandomGrayscale(p=0.2),
-        #transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        #transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
-        transforms.Normalize([0.4914], [0.2023]),
-    ])
+    #transform_train = transforms.Compose([
+    #    transforms.RandomResizedCrop(size=32, scale=(0.2,1.)),
+    #    transforms.ColorJitter(0.4, 0.4, 0.4, 0.4),
+    #    transforms.RandomGrayscale(p=0.2),
+    #    #transforms.RandomHorizontalFlip(),
+    #    transforms.ToTensor(),
+    #    #transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+     #   transforms.Normalize([0.4914], [0.2023]),
+    #])
 
-    transform_test = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize([0.4914], [0.2023]),
+    #transform_test = transforms.Compose([
+    #    transforms.ToTensor(),
+    #    transforms.Normalize([0.4914], [0.2023]),
+    #])
+    transform_train = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
 
     #### TODO: Modify this part to change the dataset ######
