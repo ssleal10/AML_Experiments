@@ -99,16 +99,16 @@ class Proper_arch(nn.Module):
         super(Proper_arch, self).__init__()
         #encoder 
         self.encoder = nn.Sequential(
-            nn.Conv2d(1, 6, kernel_size=3, padding=1, bias=False),
+            nn.Conv2d(1, 6, kernel_size=5, padding=1, bias=False),
             #nn.BatchNorm2d(6),
             nn.ReLU(True),
-            nn.Conv2d(6, 12, kernel_size=3, padding=1, bias=False),
+            nn.Conv2d(6, 12, kernel_size=5, padding=1, bias=False),
             #nn.BatchNorm2d(12)
             nn.ReLU(True),
-            nn.Conv2d(12, 24, kernel_size=3, padding=1, bias=False),
+            nn.Conv2d(12, 24, kernel_size=5, padding=1, bias=False),
             #nn.BatchNorm2d(24)
             nn.ReLU(True),
-            nn.Conv2d(24, 48, kernel_size=3, padding=1, bias=False),
+            nn.Conv2d(24, 48, kernel_size=5, padding=1, bias=False),
             #nn.BatchNorm2d(48)
             nn.ReLU(True))
         #self.linear1 = nn.Linear(28*28*8, 28*28*4)
@@ -118,16 +118,16 @@ class Proper_arch(nn.Module):
         #self.linear4 = nn.Linear(28*28*4,28*28*8)
         #self.bn3 = nn.BatchNorm2d(8)
         self.decoder = nn.Sequential(
-            nn.ConvTranspose2d(48, 24, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.ConvTranspose2d(48, 24, kernel_size=5, stride=1, padding=1, bias=False),
             #nn.BatchNorm2d(24)
             nn.ReLU(True),
-            nn.ConvTranspose2d(24, 12, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.ConvTranspose2d(24, 12, kernel_size=5, stride=1, padding=1, bias=False),
             #nn.BatchNorm2d(12)
             nn.ReLU(True),
-            nn.ConvTranspose2d(12, 6, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.ConvTranspose2d(12, 6, kernel_size=5, stride=1, padding=1, bias=False),
             #nn.BatchNorm2d(6)
             nn.ReLU(True),
-            nn.ConvTranspose2d(6, 1, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.ConvTranspose2d(6, 1, kernel_size=5, stride=1, padding=1, bias=False),
 
             nn.ReLU(True),
             nn.Sigmoid())
