@@ -71,7 +71,7 @@ if __name__ == '__main__':
     ])
     transform_train = transforms.Compose([
     transforms.ToTensor(),
-    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+    transforms.Normalize((0.5,), (0.5,))
     ])
 
     #### TODO: Modify this part to change the dataset ######
