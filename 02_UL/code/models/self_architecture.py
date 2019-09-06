@@ -98,27 +98,28 @@ class Proper_arch(nn.Module):
     def __init__(self):
         super(Proper_arch, self).__init__()
         #encoder 
-        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, padding=1, bias=False)
-        self.bn1 = nn.BatchNorm2d(32)
-        self.conv2 = nn.Conv2d(32, 32, kernel_size=3, padding=1, bias=False)
-        self.bn2 = nn.BatchNorm2d(32)
-        self.conv3 = nn.Conv2d(32, 32, kernel_size=3, padding=1, bias=False)
-        self.bn3 = nn.BatchNorm2d(32)
-        self.conv4 = nn.Conv2d(32, 32, kernel_size=3, padding=1, bias=False)
-        self.bn4 = nn.BatchNorm2d(32)
+        numF = 128
+        self.conv1 = nn.Conv2d(1, numF, kernel_size=3, padding=1, bias=False)
+        self.bn1 = nn.BatchNorm2d(numF)
+        self.conv2 = nn.Conv2d(numF, numF, kernel_size=3, padding=1, bias=False)
+        self.bn2 = nn.BatchNorm2d(numF)
+        self.conv3 = nn.Conv2d(numF, numF, kernel_size=3, padding=1, bias=False)
+        self.bn3 = nn.BatchNorm2d(numF)
+        self.conv4 = nn.Conv2d(numF, numF, kernel_size=3, padding=1, bias=False)
+        self.bn4 = nn.BatchNorm2d(numF)
         #self.linear1 = nn.Linear(28*28*8, 28*28*4)
         #self.linear2 = nn.Linear(28*28*4, 28*28*2)
         
         #self.linear3 = nn.Linear(28*28*2,28*28*4)
         #self.linear4 = nn.Linear(28*28*4,28*28*8)
         #self.bn3 = nn.BatchNorm2d(8)
-        self.conv5 = nn.ConvTranspose2d(32, 32, kernel_size=3, stride=1, padding=1, bias=False)
-        self.bn5 = nn.BatchNorm2d(32)
-        self.conv6 = nn.ConvTranspose2d(32, 32, kernel_size=3, stride=1, padding=1, bias=False)
-        self.bn6 = nn.BatchNorm2d(32)
-        self.conv7 = nn.ConvTranspose2d(32, 32, kernel_size=3, stride=1, padding=1, bias=False)
-        self.bn7 = nn.BatchNorm2d(32)
-        self.conv8 = nn.ConvTranspose2d(32, 1, kernel_size=3, stride=1, padding=1, bias=False)
+        self.conv5 = nn.ConvTranspose2d(numF, numF, kernel_size=3, stride=1, padding=1, bias=False)
+        self.bn5 = nn.BatchNorm2d(numF)
+        self.conv6 = nn.ConvTranspose2d(numF, numF, kernel_size=3, stride=1, padding=1, bias=False)
+        self.bn6 = nn.BatchNorm2d(numF)
+        self.conv7 = nn.ConvTranspose2d(numF, numF, kernel_size=3, stride=1, padding=1, bias=False)
+        self.bn7 = nn.BatchNorm2d(numF)
+        self.conv8 = nn.ConvTranspose2d(numF, 1, kernel_size=3, stride=1, padding=1, bias=False)
 
 
 
