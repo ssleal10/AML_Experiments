@@ -98,51 +98,46 @@ class Proper_arch(nn.Module):
     def __init__(self):
         super(Proper_arch, self).__init__()
         #encoder 
-        numF = 128
-        self.conv1 = nn.Conv2d(1, numF, kernel_size=3, padding=1, bias=False)
-        self.bn1 = nn.BatchNorm2d(numF)
-        self.conv2 = nn.Conv2d(numF, numF, kernel_size=3, padding=1, bias=False)
-        self.bn2 = nn.BatchNorm2d(numF)
-        self.conv3 = nn.Conv2d(numF, numF, kernel_size=3, padding=1, bias=False)
-        self.bn3 = nn.BatchNorm2d(numF)
-        self.conv4 = nn.Conv2d(numF, numF, kernel_size=3, padding=1, bias=False)
-        self.bn4 = nn.BatchNorm2d(numF)
+        self.encoder = nn.Sequential(
+            nn.Conv2d(1, 6, kernel_size=3, padding=1, bias=False),
+            #nn.BatchNorm2d(6),
+            nn.ReLU(True),
+            nn.Conv2d(6, 12, kernel_size=3, padding=1, bias=False),
+            #nn.BatchNorm2d(12)
+            nn.ReLU(True),
+            nn.Conv2d(12, 24, kernel_size=3, padding=1, bias=False),
+            #nn.BatchNorm2d(24)
+            nn.ReLU(True),
+            nn.Conv2d(24, 48, kernel_size=3, padding=1, bias=False),
+            #nn.BatchNorm2d(48)
+            nn.ReLU(True))
         #self.linear1 = nn.Linear(28*28*8, 28*28*4)
         #self.linear2 = nn.Linear(28*28*4, 28*28*2)
         
         #self.linear3 = nn.Linear(28*28*2,28*28*4)
         #self.linear4 = nn.Linear(28*28*4,28*28*8)
         #self.bn3 = nn.BatchNorm2d(8)
-        self.conv5 = nn.ConvTranspose2d(numF, numF, kernel_size=3, stride=1, padding=1, bias=False)
-        self.bn5 = nn.BatchNorm2d(numF)
-        self.conv6 = nn.ConvTranspose2d(numF, numF, kernel_size=3, stride=1, padding=1, bias=False)
-        self.bn6 = nn.BatchNorm2d(numF)
-        self.conv7 = nn.ConvTranspose2d(numF, numF, kernel_size=3, stride=1, padding=1, bias=False)
-        self.bn7 = nn.BatchNorm2d(numF)
-        self.conv8 = nn.ConvTranspose2d(numF, 1, kernel_size=3, stride=1, padding=1, bias=False)
+        self.decoder = nn.Sequential(
+            nn.ConvTranspose2d(48, 24, kernel_size=3, stride=1, padding=1, bias=False),
+            #nn.BatchNorm2d(24)
+            nn.ReLU(True),
+            nn.ConvTranspose2d(24, 12, kernel_size=3, stride=1, padding=1, bias=False),
+            #nn.BatchNorm2d(12)
+            nn.ReLU(True),
+            nn.ConvTranspose2d(12, 6, kernel_size=3, stride=1, padding=1, bias=False),
+            #nn.BatchNorm2d(6)
+            nn.ReLU(True),
+            nn.ConvTranspose2d(6, 1, kernel_size=3, stride=1, padding=1, bias=False),
 
+            nn.ReLU(True),
+            nn.Sigmoid())
 
 
         
     def forward(self, x):
         #Encoder
-        x = F.relu(self.bn1(self.conv1(x)))
-        x = F.relu(self.bn2(self.conv2(x)))
-        x = F.relu(self.bn3(self.conv3(x)))
-        x = F.relu(self.bn4(self.conv4(x)))
-        #x = x.view(-1,28*28*8)
-        #x = F.relu(self.linear1(x))
-        #x = F.relu(self.linear2(x))
-        #decoder
-        #x = F.relu(self.linear3(x))
-        #x = F.relu(self.linear4(x))
-        #contrario x.view
-        #x = x.view(28,28,8)
-        x = F.relu(self.bn5(self.conv5(x)))
-        x = F.relu(self.bn6(self.conv6(x)))
-        x = F.relu(self.bn7(self.conv7(x)))
-        x = F.relu((self.conv8(x)))
-        x = F.relu(x)
+        x = self.encoder(x)
+        x = self.decoder(x)
         return x
 
 
