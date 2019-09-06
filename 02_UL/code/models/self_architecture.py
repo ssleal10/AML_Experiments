@@ -99,18 +99,20 @@ class Proper_arch(nn.Module):
         super(Proper_arch, self).__init__()
         #encoder 
         self.encoder = nn.Sequential(
-            nn.Conv2d(1, 6, kernel_size=5, padding=1, bias=False),
+            nn.Conv2d(1, 16, kernel_size=3, padding=1, bias=False),
             #nn.BatchNorm2d(6),
             nn.ReLU(True),
-            nn.Conv2d(6, 12, kernel_size=5, padding=1, bias=False),
+            nn.MaxPool2d(2, stride=2)
+            nn.Conv2d(16, 8 kernel_size=2, padding=1, bias=False),
             #nn.BatchNorm2d(12)
             nn.ReLU(True),
-            nn.Conv2d(12, 24, kernel_size=5, padding=1, bias=False),
+            nn.MaxPool2d(2, stride=1)
+            #nn.Conv2d(12, 24, kernel_size=5, padding=1, bias=False),
             #nn.BatchNorm2d(24)
-            nn.ReLU(True),
-            nn.Conv2d(24, 48, kernel_size=5, padding=1, bias=False),
+            #nn.ReLU(True),
+            #nn.Conv2d(24, 48, kernel_size=5, padding=1, bias=False),
             #nn.BatchNorm2d(48)
-            nn.ReLU(True))
+            #nn.ReLU(True))
         #self.linear1 = nn.Linear(28*28*8, 28*28*4)
         #self.linear2 = nn.Linear(28*28*4, 28*28*2)
         
@@ -118,20 +120,20 @@ class Proper_arch(nn.Module):
         #self.linear4 = nn.Linear(28*28*4,28*28*8)
         #self.bn3 = nn.BatchNorm2d(8)
         self.decoder = nn.Sequential(
-            nn.ConvTranspose2d(48, 24, kernel_size=5, stride=1, padding=1, bias=False),
+            nn.ConvTranspose2d(8, 16 kernel_size=3, stride=2, padding=1, bias=False),
             #nn.BatchNorm2d(24)
             nn.ReLU(True),
-            nn.ConvTranspose2d(24, 12, kernel_size=5, stride=1, padding=1, bias=False),
+            nn.ConvTranspose2d(16 8, kernel_size=5, stride=3, padding=1, bias=False),
             #nn.BatchNorm2d(12)
             nn.ReLU(True),
-            nn.ConvTranspose2d(12, 6, kernel_size=5, stride=1, padding=1, bias=False),
+            nn.ConvTranspose2d(8, 1 kernel_size=2, stride=2, padding=1, bias=False),
             #nn.BatchNorm2d(6)
-            nn.ReLU(True),
-            nn.ConvTranspose2d(6, 1, kernel_size=5, stride=1, padding=1, bias=False),
+            #n.ReLU(True),
+            #n.ConvTranspose2d(6, 1, kernel_size=5, stride=1, padding=1, bias=False),
 
             nn.ReLU(True),
-            nn.Sigmoid())
-
+            #n.Sigmoid())
+            nn.Tanh()
 
         
     def forward(self, x):
