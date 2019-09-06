@@ -99,14 +99,14 @@ class Proper_arch(nn.Module):
         super(Proper_arch, self).__init__()
         #encoder 
         self.encoder = nn.Sequential(
-            nn.Conv2d(1, 16, 3, stride=3, padding=1),  # b, 16, 10, 10
+            nn.Conv2d(1, 16, 3, stride=1, padding=1),  # b, 16, 10, 10
             nn.ReLU(True),
-            nn.Conv2d(16, 8, 3, stride=2, padding=1),  # b, 8, 3, 3
+            nn.Conv2d(16, 8, 3, stride=1, padding=1),  # b, 8, 3, 3
             nn.ReLU(True))
         self.decoder = nn.Sequential(
-            nn.ConvTranspose2d(8, 16, 3, stride=2),  # b, 16, 5, 5
+            nn.ConvTranspose2d(8, 16, 3, stride=1,padding=1),  # b, 16, 5, 5
             nn.ReLU(True),
-            nn.ConvTranspose2d(16, 1, 3, stride=3, padding=1),  # b, 1, 28, 28
+            nn.ConvTranspose2d(16, 1, 3, stride=1, padding=1),  # b, 1, 28, 28
             nn.ReLU(True),
             nn.Tanh())
         
