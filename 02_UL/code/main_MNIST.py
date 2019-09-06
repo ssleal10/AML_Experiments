@@ -46,7 +46,7 @@ parser.add_argument('--batch_size', default=128, type=int, help='training batch 
 parser.add_argument('--batch_size_test', default=100, type=int, help='test batch size')
 
 args = parser.parse_args()
-
+print(args)
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 best_acc = 0  # best test accuracy
 start_epoch = 0  # start from epoch 0 or last checkpoint epoch
