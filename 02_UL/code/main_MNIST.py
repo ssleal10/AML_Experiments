@@ -107,11 +107,11 @@ if __name__ == '__main__':
         start_epoch = checkpoint['epoch']
         
     # define loss function
-    if hasattr(lemniscate, 'K'):
-        criterion = NCECriterion(ndata)
-    else:
-        criterion = nn.CrossEntropyLoss()
-    #criterion = nn.MSELoss()
+    #if hasattr(lemniscate, 'K'):
+        #criterion = NCECriterion(ndata)
+    #else:
+        #criterion = nn.CrossEntropyLoss()
+    criterion = nn.MSELoss()
     
     net.to(device)
     lemniscate.to(device)
