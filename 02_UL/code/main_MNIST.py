@@ -196,3 +196,4 @@ if __name__ == '__main__':
 
     #acc = kNN(0, net, lemniscate, trainloader, testloader, 200, args.nce_t, 1)
     #print('last accuracy: {:.2f}'.format(acc*100))
+torch.save(net, 'MNIST.pth')
