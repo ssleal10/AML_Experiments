@@ -10,6 +10,7 @@ import torch.backends.cudnn as cudnn
 
 import torchvision
 import torchvision.transforms as transforms
+from torchvision.utils import save_image
 import lib.custom_transforms as custom_transforms
 
 import os
