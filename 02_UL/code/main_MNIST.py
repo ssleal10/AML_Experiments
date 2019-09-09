@@ -30,7 +30,7 @@ from lib.utils import AverageMeter
 from test import NN, kNN
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
-parser.add_argument('--lr', default=1e-6, type=float, help='learning rate')
+parser.add_argument('--lr', default=1e-7, type=float, help='learning rate')
 parser.add_argument('--resume', '-r', default='', type=str, help='resume from checkpoint')
 parser.add_argument('--test-only', action='store_true', help='test only')
 parser.add_argument('--low-dim', default=128, type=int,
@@ -41,7 +41,7 @@ parser.add_argument('--nce-t', default=0.1, type=float,
                     metavar='T', help='temperature parameter for softmax')
 parser.add_argument('--nce-m', default=0.5, type=float,
                     metavar='M', help='momentum for non-parametric updates')
-parser.add_argument('--epochs', default=10, type=int, metavar='N',
+parser.add_argument('--epochs', default=11, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--batch_size', default=8, type=int, help='training batch size')
 parser.add_argument('--batch_size_test', default=100, type=int, help='test batch size')
@@ -185,7 +185,7 @@ if __name__ == '__main__':
                 'Loss: {train_loss.val:.4f} ({train_loss.avg:.4f})'.format(
                 epoch, batch_idx, len(trainloader), batch_time=batch_time, data_time=data_time, train_loss=train_loss))
             
-            if epoch % 10 == 0:
+            if epoch % 2 == 0:
               pic = to_img(outputs.cpu().data)
               save_image(pic, './out_images/image_{}.png'.format(epoch))
     
@@ -193,7 +193,7 @@ if __name__ == '__main__':
       for batch_idx, (inputs, targets, indexes) in enumerate(testloader):
           inputs, targets, indexes = inputs.to(device), targets.to(device), indexes.to(device)
           outputs = net(inputs)
-          if epoch % 10 == 0:
+          if epoch % 2 == 0:
             pic = to_img(outputs.cpu().data)
             save_image(pic, './out_images/imageTest_{}.png'.format(epoch))
               
