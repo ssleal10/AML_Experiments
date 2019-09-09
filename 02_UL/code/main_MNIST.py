@@ -51,6 +51,15 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 best_acc = 0  # best test accuracy
 start_epoch = 0  # start from epoch 0 or last checkpoint epoch
 
+if not os.path.exists('./out_images'):
+    os.mkdir('./out_images')
+    
+def to_img(x):
+    x = 0.5 * (x + 1)
+    x = x.clamp(0, 1)
+    x = x.view(x.size(0), 1, 28, 28)
+    return x
+    
 if __name__ == '__main__':
 
     # Data
@@ -174,6 +183,10 @@ if __name__ == '__main__':
                 'Data: {data_time.val:.3f} ({data_time.avg:.3f}) '
                 'Loss: {train_loss.val:.4f} ({train_loss.avg:.4f})'.format(
                 epoch, batch_idx, len(trainloader), batch_time=batch_time, data_time=data_time, train_loss=train_loss))
+            
+            if epoch % 10 == 0:
+              pic = to_img(outputs.cpu().data)
+              save_image(pic, './out_images/image_{}.png'.format(epoch))
 
     for epoch in range(start_epoch, start_epoch+args.epochs):
         train(epoch)
