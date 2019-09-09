@@ -188,9 +188,18 @@ if __name__ == '__main__':
             if epoch % 10 == 0:
               pic = to_img(outputs.cpu().data)
               save_image(pic, './out_images/image_{}.png'.format(epoch))
-
+    
+    def test(epoch):
+      for batch_idx, (inputs, targets, indexes) in enumerate(testloader):
+          inputs, targets, indexes = inputs.to(device), targets.to(device), indexes.to(device)
+          outputs = net(inputs)
+          if epoch % 10 == 0:
+            pic = to_img(outputs.cpu().data)
+            save_image(pic, './out_images/imageTest_{}.png'.format(epoch))
+              
     for epoch in range(start_epoch, start_epoch+args.epochs):
         train(epoch)
+        test(epoch)
         #acc = kNN(epoch, net, lemniscate, trainloader, testloader, 200, args.nce_t, 0)
 
         #if acc > best_acc:
@@ -210,12 +219,6 @@ if __name__ == '__main__':
 
     #acc = kNN(0, net, lemniscate, trainloader, testloader, 200, args.nce_t, 1)
     #print('last accuracy: {:.2f}'.format(acc*100))
-def test(epoch):
-  for batch_idx, (inputs, targets, indexes) in enumerate(testloader):
-      inputs, targets, indexes = inputs.to(device), targets.to(device), indexes.to(device)
-      outputs = net(inputs)
-      if epoch % 10 == 0:
-        pic = to_img(outputs.cpu().data)
-        save_image(pic, './out_images/imageTest_{}.png'.format(epoch))
+
       
 torch.save(net, 'MNIST.pth')
