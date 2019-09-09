@@ -41,7 +41,7 @@ parser.add_argument('--nce-t', default=0.1, type=float,
                     metavar='T', help='temperature parameter for softmax')
 parser.add_argument('--nce-m', default=0.5, type=float,
                     metavar='M', help='momentum for non-parametric updates')
-parser.add_argument('--epochs', default=11, type=int, metavar='N',
+parser.add_argument('--epochs', default=21, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--batch_size', default=8, type=int, help='training batch size')
 parser.add_argument('--batch_size_test', default=100, type=int, help='test batch size')
