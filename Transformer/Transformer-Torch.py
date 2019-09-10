@@ -33,7 +33,7 @@ d_ff = 2048 # FeedForward dimension
 d_k = d_v = 64  # dimension of K(=Q), V
 n_layers = 6  # number of Encoder of Decoder Layer
 n_heads = 8  # number of heads in Multi-Head Attention
-number_epochs = 20
+number_epochs = 40
 
 def make_batch(sentences):
     input_batch = [[src_vocab[n] for n in sentences[0].split()]]
@@ -208,7 +208,7 @@ for epoch in range(number_epochs):
     enc_inputs, dec_inputs, target_batch = make_batch(sentences)
     outputs, enc_self_attns, dec_self_attns, dec_enc_attns = model(enc_inputs, dec_inputs)
     loss = criterion(outputs, target_batch.contiguous().view(-1))
-    print('Epoch:', '%04d' % (epoch + 1), 'cost =', '{:.6f}'.format(loss))
+    print('Epoch:', '%04d' % (epoch + 1), 'Loss =', '{:.6f}'.format(loss))
     loss.backward()
     optimizer.step()
 
