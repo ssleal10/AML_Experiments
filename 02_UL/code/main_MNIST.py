@@ -30,7 +30,7 @@ from lib.utils import AverageMeter
 from test import NN, kNN
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
-parser.add_argument('--lr', default=1e-7, type=float, help='learning rate')
+parser.add_argument('--lr', default=1e-3, type=float, help='learning rate')
 parser.add_argument('--resume', '-r', default='', type=str, help='resume from checkpoint')
 parser.add_argument('--test-only', action='store_true', help='test only')
 parser.add_argument('--low-dim', default=128, type=int,
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     # Training
     def train(epoch):
         print('\nEpoch: %d' % epoch)
-        #adjust_learning_rate(optimizer, epoch)
+        adjust_learning_rate(optimizer, epoch)
         train_loss = AverageMeter()
         data_time = AverageMeter()
         batch_time = AverageMeter()
