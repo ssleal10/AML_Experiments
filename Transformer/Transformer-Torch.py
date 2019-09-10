@@ -56,8 +56,10 @@ def get_attn_pad_mask(seq_q, seq_k):
     batch_size, len_k = seq_k.size()
     # eq(zero) is PAD token
     pad_attn_mask = seq_k.data.eq(0).unsqueeze(1)  # batch_size x 1 x len_k(=len_q), one is masking
+    aux = pad_attn_mask.expand(batch_size, len_q, len_k).type(torch.DoubleTensor)
+    print('aux type',aux.type())
     return pad_attn_mask.expand(batch_size, len_q, len_k)  # batch_size x len_q x len_k
-
+  
 def get_attn_subsequent_mask(seq):
     attn_shape = [seq.size(0), seq.size(1), seq.size(1)]
     subsequent_mask = np.triu(np.ones(attn_shape), k=1)
