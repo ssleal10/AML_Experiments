@@ -11,23 +11,23 @@ import torch.backends.cudnn as cudnn
 import torchvision
 import torchvision.transforms as transforms
 from torchvision.utils import save_image
-import lib.custom_transforms as custom_transforms
+import code.lib.custom_transforms as custom_transforms
 
 import os
 import argparse
 import time
 
-import models
+import code.models
 import ssleal10_MODEL as Autoencoder
-import datasets
+import code.datasets
 import math
 import statistics
 
-from lib.NCEAverage import NCEAverage
-from lib.LinearAverage import LinearAverage
-from lib.NCECriterion import NCECriterion
-from lib.utils import AverageMeter
-from test import NN, kNN
+from code.lib.NCEAverage import NCEAverage
+from code.lib.LinearAverage import LinearAverage
+from code.lib.NCECriterion import NCECriterion
+from code.lib.utils import AverageMeter
+from code.test import NN, kNN
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--lr', default=1e-5, type=float, help='learning rate')
@@ -52,7 +52,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 best_acc = 0  # best test accuracy
 start_epoch = 0  # start from epoch 0 or last checkpoint epoch
 
-#### TODOsave reconstructed images in an output directory 
+#### TODO:save reconstructed images in an output directory 
 if not os.path.exists('./out_images'):
     os.mkdir('./out_images')
     
@@ -99,7 +99,7 @@ if __name__ == '__main__':
 
     print('==> Building model..')
     #net = models.__dict__['ResNet18'](low_dim=args.low_dim)
-    #### TODO
+    #### TODO: Define the network
     net = Autoencoder.encoder_decoder()
     print(net)
 
@@ -129,7 +129,7 @@ if __name__ == '__main__':
         #criterion = NCECriterion(ndata)
     #else:
         #criterion = nn.CrossEntropyLoss()
-    #### TODO
+    #### TODO: Define loss function for reconstruction
     criterion = nn.MSELoss()
     
     net.to(device)
@@ -140,7 +140,7 @@ if __name__ == '__main__':
         acc = kNN(0, net, lemniscate, trainloader, testloader, 200, args.nce_t, 1)
         sys.exit(0)
 
-    #### TODO
+    #### TODO: Define optimizer 
     #optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
     optimizer = optim.Adam(net.parameters(), lr=args.lr, weight_decay=1e-5)
     def adjust_learning_rate(optimizer, epoch):
@@ -172,7 +172,7 @@ if __name__ == '__main__':
             
             outputs = net(inputs)
             #outputs = lemniscate(features, indexes)
-            #calcular el loss sobre la salida del decoder con respecto a la entrada del encoder
+            #### TODO: calculate the loss on the decoder output with respect to the encoder input
             loss = criterion(outputs,inputs)
             
             optimizer.zero_grad()
@@ -201,6 +201,7 @@ if __name__ == '__main__':
       for batch_idx, (inputs, targets, indexes) in enumerate(testloader):
           inputs, targets, indexes = inputs.to(device), targets.to(device), indexes.to(device)
           outputs = net(inputs)
+          #### TODO:in pair epochs save reconstructed images in an output directory
           if epoch % 2 == 0:
             pic = to_img(outputs.cpu().data)
             save_image(pic, './out_images/imageTest_{}.png'.format(epoch))
