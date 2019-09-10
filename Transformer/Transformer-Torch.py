@@ -53,19 +53,9 @@ def get_sinusoid_encoding_table(n_position, d_model):
 
 def get_attn_pad_mask(seq_q, seq_k):
     batch_size, len_q = seq_q.size()
-    print('seq_q.size()',seq_q.size())
-    print('batch_size',batch_size)
-    print('len_q',len_q)
     batch_size, len_k = seq_k.size()
     # eq(zero) is PAD token
-    print('seq_k',seq_k)
-    print('seq_k.size()',seq_k.size())
-    print('batch_size',batch_size)
-    print('len_q',len_q)
-    print('seq_k.data.eq(0):', seq_k.data.eq(0))
     pad_attn_mask = seq_k.data.eq(0).unsqueeze(1)  # batch_size x 1 x len_k(=len_q), one is masking
-    print('seq_k.data.eq(0).unsqueeze(1):',seq_k.data.eq(0).unsqueeze(1))
-    print('pad_attn_mask.expand(batch_size, len_q, len_k)',pad_attn_mask.expand(batch_size, len_q, len_k))
     return pad_attn_mask.expand(batch_size, len_q, len_k)  # batch_size x len_q x len_k
 
 def get_attn_subsequent_mask(seq):
@@ -169,11 +159,11 @@ class Decoder(nn.Module):
     def forward(self, dec_inputs, enc_inputs, enc_outputs): # dec_inputs : [batch_size x target_len]
         dec_outputs = self.tgt_emb(dec_inputs) + self.pos_emb(torch.LongTensor([[5,1,2,3,4]]))
         dec_self_attn_pad_mask = get_attn_pad_mask(dec_inputs, dec_inputs)
-        print('dec_inputs',dec_inputs)
         dec_self_attn_subsequent_mask = get_attn_subsequent_mask(dec_inputs)
         print('dec_self_attn_pad_mask type',dec_self_attn_pad_mask.type())
-        print('dec_self_attn_pad_mask type',dec_self_attn_pad_mask)
+        print('dec_self_attn_pad_mask',dec_self_attn_pad_mask)
         print('dec_self_attn_subsequent_mask type',dec_self_attn_subsequent_mask.type())
+        print('dec_self_attn_subsequent_mask:',dec_self_attn_subsequent_mask)
         aux = dec_self_attn_pad_mask + dec_self_attn_subsequent_mask
         print('aux',aux)
         print('aux type',aux.type())
