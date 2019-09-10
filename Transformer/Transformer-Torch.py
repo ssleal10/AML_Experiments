@@ -158,7 +158,7 @@ class Decoder(nn.Module):
 
     def forward(self, dec_inputs, enc_inputs, enc_outputs): # dec_inputs : [batch_size x target_len]
         dec_outputs = self.tgt_emb(dec_inputs) + self.pos_emb(torch.LongTensor([[5,1,2,3,4]]))
-        print('dec_outputs',dec_output.type())
+        print('dec_outputs',dec_outputs.type())
         dec_self_attn_pad_mask = get_attn_pad_mask(dec_inputs, dec_inputs)
         print('dec_self_attn_pad_mask',dec_self_attn_pad_mask.type())
         dec_self_attn_subsequent_mask = get_attn_subsequent_mask(dec_inputs)
