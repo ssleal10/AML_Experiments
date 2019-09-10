@@ -53,6 +53,9 @@ def get_sinusoid_encoding_table(n_position, d_model):
 
 def get_attn_pad_mask(seq_q, seq_k):
     batch_size, len_q = seq_q.size()
+    print('seq_q.size()',seq_q.size())
+    print('batch_size',batch_size)
+    print('len_q',len_q)
     batch_size, len_k = seq_k.size()
     # eq(zero) is PAD token
     pad_attn_mask = seq_k.data.eq(0).unsqueeze(1)  # batch_size x 1 x len_k(=len_q), one is masking
