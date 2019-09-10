@@ -52,7 +52,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 best_acc = 0  # best test accuracy
 start_epoch = 0  # start from epoch 0 or last checkpoint epoch
 
-#### TODOsave reconstructed images in an output directory 
+#### TODO:save reconstructed images in an output directory 
 if not os.path.exists('./out_images'):
     os.mkdir('./out_images')
     
