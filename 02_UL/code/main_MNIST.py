@@ -72,12 +72,12 @@ if __name__ == '__main__':
         #transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         #transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
-        transforms.Normalize([0.4914], [0.2023]),
+        transforms.Normalize([0.5], [0.5]),
     ])
 
     transform_test = transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize([0.4914], [0.2023]),
+        transforms.Normalize([0.5], [0.5]),
     ])
 
     #### TODO: Modify this part to change the dataset ######
