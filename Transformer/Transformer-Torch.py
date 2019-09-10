@@ -73,13 +73,8 @@ class ScaledDotProductAttention(nn.Module):
 
     def forward(self, Q, K, V, attn_mask):
         scores = torch.matmul(Q, K.transpose(-1, -2)) / np.sqrt(d_k) # scores : [batch_size x n_heads x len_q(=len_k) x len_k(=len_q)]
-        print('--------------------------------------')
-        print('attn_mask type:',attn_mask.type())
-        print('attn_mask:',attn_mask)
-        
-        print('attn_mask (torch.bool):',attn_mask.type(torch.bool))
-        print('--------------------------------------')
-        scores.masked_fill_(attn_mask, -1e9) # Fills elements of self tensor with value where mask is one.
+        #attn_mask.type(torch.bool))
+        scores.masked_fill_(attn_mask.type(torch.bool)), -1e9) # Fills elements of self tensor with value where mask is one.
         attn = nn.Softmax(dim=-1)(scores)
         context = torch.matmul(attn, V)
         return context, attn
