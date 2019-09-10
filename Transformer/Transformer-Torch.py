@@ -161,7 +161,7 @@ class Decoder(nn.Module):
         dec_self_attn_pad_mask = get_attn_pad_mask(dec_inputs, dec_inputs)
         dec_self_attn_subsequent_mask = get_attn_subsequent_mask(dec_inputs).type(torch.DoubleTensor)
         print('dec_self_attn_subsequent_mask',dec_self_attn_subsequent_mask)
-         print('dec_self_attn_subsequent_mask type',dec_self_attn_subsequent_mask.typ())
+        print('dec_self_attn_subsequent_mask type',dec_self_attn_subsequent_mask.type())
         dec_self_attn_mask = torch.gt((dec_self_attn_pad_mask + dec_self_attn_subsequent_mask), 0)
 
         dec_enc_attn_mask = get_attn_pad_mask(dec_inputs, enc_inputs)
