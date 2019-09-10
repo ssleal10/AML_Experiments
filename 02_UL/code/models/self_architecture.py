@@ -108,7 +108,7 @@ class Proper_arch(nn.Module):
             nn.ReLU(True),
             nn.ConvTranspose2d(16, 1, 3, stride=1, padding=1),  # b, 1, 28, 28
             nn.ReLU(True),
-            nn.Tanh())
+            nn.Sigmoid())
         
     def forward(self, x):
         #Encoder
