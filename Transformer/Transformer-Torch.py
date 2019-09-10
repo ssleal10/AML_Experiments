@@ -33,6 +33,7 @@ d_ff = 2048 # FeedForward dimension
 d_k = d_v = 64  # dimension of K(=Q), V
 n_layers = 6  # number of Encoder of Decoder Layer
 n_heads = 8  # number of heads in Multi-Head Attention
+number_epochs = 20
 
 def make_batch(sentences):
     input_batch = [[src_vocab[n] for n in sentences[0].split()]]
@@ -202,7 +203,7 @@ def showgraph(attn):
     ax.set_yticklabels(['']+sentences[2].split(), fontdict={'fontsize': 14})
     plt.show()
 
-for epoch in range(20):
+for epoch in range(number_epochs):
     optimizer.zero_grad()
     enc_inputs, dec_inputs, target_batch = make_batch(sentences)
     outputs, enc_self_attns, dec_self_attns, dec_enc_attns = model(enc_inputs, dec_inputs)
